@@ -1,5 +1,7 @@
 LDFLAGS := -lpthread
 FILES := network options monitor manager director utils
+OBJECTS := $(FILES:.o)
+BINARY := coniuncti
 
 define genrule
 $1.o: $1.c $1.h
@@ -7,9 +9,9 @@ $1.o: $1.c $1.h
 endef
 
 .PHONY: all
-all: a.out
+all: $(BINARY)
 
-network: network.o options.o monitor.o manager.o director.o utils.o
+$(BINARY): $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 .PHONY: network.h
@@ -17,4 +19,4 @@ $(foreach file,$(FILES),$(eval $(call genrule,$(file))))
 
 .PHONY: clean
 clean:
-	rm -f *.o network
+	rm -f *.o $(BINARY)
