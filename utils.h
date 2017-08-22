@@ -9,12 +9,9 @@ int   ezsocket(void);
 int   ezbind(int, void*);
 int   ezconnect(int, void*);
 int   ezlisten(int);
-int   ezaccept(int, char**);//, unsigned int*);
+int   ezaccept(int, char*);
 int   ezserver(unsigned int, unsigned short);
 int   ezlisten(int);
 // int   ezerror(void);
-
-unsigned int   ezip(void*);
-unsigned short ezport(void*);
 
 #endif

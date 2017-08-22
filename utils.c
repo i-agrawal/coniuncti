@@ -85,15 +85,15 @@ ezlisten(int sockfd)
 }
 
 int
-ezaccept(int sockfd, char** str)//, unsigned int* len)
+ezaccept(int sockfd, char* addr)//, unsigned int* len)
 {
-  char* addr;
   unsigned int length = sizeof(struct sockaddr_in);
   struct sockaddr_in address;
   int cfd = accept(sockfd, (struct sockaddr*)&address, (void*)&length);
   if (cfd == -1) {
     // error: accepting client failed
-    // uerror = 5
+    // uerror = 5;
+    strcpy(addr, "accepting client failed");
     return -1;
   }
   if (address.sin_family != AF_INET) {
@@ -103,7 +103,6 @@ ezaccept(int sockfd, char** str)//, unsigned int* len)
     unsigned char* ip = (unsigned char *)&(address.sin_addr.s_addr);
     sprintf(addr, "%hhu.%hhu.%hhu.%hhu:%hu", ip[0], ip[1], ip[2], ip[3], address.sin_port);
   }
-  *str = addr;
 
   return cfd;
 }
@@ -126,16 +125,4 @@ ezserver(unsigned int ip, unsigned short port)
     return -1;
   }
   return sockfd;
-}
-
-unsigned int
-ezip(void* addrptr) {
-  struct sockaddr_in* addr = addrptr;
-  return addr->sin_addr.s_addr;
-}
-
-unsigned short
-ezport(void* addrptr) {
-  struct sockaddr_in* addr = addrptr;
-  return addr->sin_port;
 }

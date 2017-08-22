@@ -54,24 +54,12 @@ direct(void* monptr)
     }
     else if (ret != 0) {
       if (FD_ISSET(plistenfd, &reads)) {
-        tmp = ezaccept(plistenfd, &address);
+        tmp = ezaccept(plistenfd, address);
         if (tmp != -1) {
           printf("new peer connection %s\n", address);
           close(tmp);
         }
       }
-      // if (FD_ISSET(clistenfd, &reads)) {
-      //   address = ezaddress(0, 0);
-      //   ret = ezaccept(clistenfd, address);
-      //   if (ret != -1) {
-      //     cip = ezip(address);
-      //     cport = ezport(address);
-      //     ip = (unsigned char*)&cip;
-      //     printf("client connection on %hhu.%hhu.%hhu.%hhu:%hu\n", ip[0], ip[1], ip[2], ip[3], cport);
-      //     close(ret);
-      //   }
-      //   free(address);
-      // }
     }
     monitor->fdlock = 0;
   }
