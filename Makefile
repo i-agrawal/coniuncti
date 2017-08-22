@@ -1,9 +1,12 @@
-ifneq ($(OS),Windows_NT)
-	ifeq ($(OS),Linux)
-		LDFLAGS := -pthread
-	else
-		LDFLAGS := -lpthread
-	endif
+ifeq ($(OS),Windows_NT)
+$(error "windows not supported")
+else
+UNAME_OS := $(shell uname -s)
+ifeq ($(UNAME_OS),Linux)
+LDFLAGS := -pthread
+else
+LDFLAGS := -lpthread
+endif
 endif
 
 FILES := network options monitor manager director utils
