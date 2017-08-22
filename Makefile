@@ -1,4 +1,11 @@
-LDFLAGS := -lpthread
+ifneq ($(OS),Windows_NT)
+	ifeq ($(OS),Linux)
+		LDFLAGS := -pthread
+	else
+		LDFLAGS := -lpthread
+	endif
+endif
+
 FILES := network options monitor manager director utils
 OBJECTS := $(addsuffix .o,$(FILES))
 BINARY := coniuncti
