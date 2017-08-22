@@ -1,6 +1,6 @@
 LDFLAGS := -lpthread
 FILES := network options monitor manager director utils
-OBJECTS := $(FILES:.o)
+OBJECTS := $(addsuffix .o,$(FILES))
 BINARY := coniuncti
 
 define genrule
